@@ -1,5 +1,22 @@
-include Makefile.help
-include Makefile.mk
+#------------------------ INIT
+ifeq (,$(wildcard Makefile.mk))
+$(shell curl https://raw.githubusercontent.com/istvano/scripts/main/Makefile.mk --output Makefile.mk --silent)
+$(error Makefile.mk does not exists - downloading it - Please run make again!)
+endif
+
+ifeq (,$(wildcard Makefile.help))
+$(shell curl https://raw.githubusercontent.com/istvano/scripts/main/Makefile.help --output Makefile.help --silent)
+$(error Makefile.help does not exists - downloading it - Please run make again!)
+endif
+
+ifeq (,$(wildcard .make-release-support))
+$(shell curl https://raw.githubusercontent.com/istvano/scripts/main/.make-release-support --output .make-release-support --silent)
+$(error .make-release-support does not exists - downloading it - Please run make again!)
+endif
+#-----------------------------
+
+-include Makefile.help
+-include Makefile.mk
 
 # you can pass in build arguments to docker with
 # DOCKER_BUILD_ARGS=--build-arg HURL_VERSION=1.6.1
